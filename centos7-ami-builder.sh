@@ -350,7 +350,7 @@ install_grub() {
 enter_shell() {
 	output "Entering AMI chroot; customize as needed.  Enter 'exit' to finish build."
 	cp /etc/resolv.conf $AMI_MNT/etc
-	PS1="[${AMI_NAME}-chroot \W]# " chroot $AMI_MNT > /dev/tty
+	PS1="[${AMI_NAME}-chroot \W]# " chroot $AMI_MNT &> /dev/tty
 	rm -f $AMI_MNT/etc/resolv.conf
 }
 
