@@ -499,7 +499,7 @@ get_input()
 	eval cv=\$${2}
 	while [[ -z $ph ]]; do
 		printf "%-45.45s : " "$1" &> /dev/tty
-		read -e -i "$cv" ph
+		read -e -i "$cv" ph &> /dev/tty
 	done
 
 	# Assign placeholder to passed variable name
