@@ -558,7 +558,7 @@ install_setup_rpms() {
 
 	if [[ -n $TO_INSTALL ]]; then
 		output "Installing build requirements: $TO_INSTALL..."
-		yum -y -q --rpmverbosity=error install $rpm
+		yum -y install $TO_INSTALL
 	fi
 }
 
