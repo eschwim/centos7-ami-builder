@@ -466,18 +466,18 @@ get_config_opts() {
 	get_input "S3 bucket region (i.e. us-west-2)" "S3_REGION"
 	get_input "AWS R/W access key" "AWS_ACCESS"
 	get_input "AWS R/W secret key" "AWS_SECRET"
-	get_input "Path to EC2 account private key" "AWS_PRIVATE_KEY"
-	get_input "Path to EC2 account certifcate" "AWS_CERT"
+	get_input "Path to AWS X509 key" "AWS_PRIVATE_KEY"
+	get_input "Path to AWS X509 certifcate" "AWS_CERT"
 
 	# Create our AWS config file
 	mkdir -p ~/.aws
 	chmod 700 ~/.aws
-	cat > $HOME/.aws_config <<-EOT
+	cat > $HOME/.aws/config <<-EOT
 	[default]
 	output = json
-	region = $region
-	aws_access_key_id = $rw_access_key
-	aws_secret_access_key = $rw_secret_key
+	region = $S3_REGION
+	aws_access_key_id = $AWS_ACCESS
+	aws_secret_access_key = $AWS_SECRET
 	EOT
 
 	# Write our config options to a file for subsequent runs
