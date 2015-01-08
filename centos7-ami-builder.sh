@@ -234,10 +234,9 @@ install_packages() {
 
 	# Install additional packages that we are definitely going to want
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install psmisc grub2 \
-		dhclient ntp e2fsprogs sudo openssh-server vim-minimal microcode_ctl gnupg2 bzip2 \
-		yum-plugin-fastestmirror pcre-devel sysstat epel-release python-setuptools \
-		java-1.6.0-openjdk.x86_64 gcc make ruby-devel rubygems python-magic xinetd rsyslog  \
-		cloud-utils-growpart cloud-init
+		dhclient ntp e2fsprogs sudo openssh-server openssh-clients vim-minimal \
+		yum-plugin-fastestmirror sysstat epel-release python-setuptools gcc make \
+		xinetd rsyslog  microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init 
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
