@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REQUIRED_RPMS=(disk patch curl yum-plugin-fastestmirror ruby ruby-devel rubygems unzip vim-enhanced java-1.6.0-openjdk bzip2)
+REQUIRED_RPMS=(yum-plugin-fastestmirror ruby ruby-devel kpartx)
 CFG_FILE=$HOME/.centos-ami-builder
 
 ## Builder functions ########################################################
