@@ -317,7 +317,7 @@ install_grub() {
 
 		title CentOS Linux ($AMI_KERNEL_VER) 7 (Core)
 				root (hd0)
-				kernel /boot/vmlinuz-$AMI_KERNEL_VER ro root=UUID=$ROOT_UUID console=ttyS0 LANG=en_US.UTF-8 loglvl=all sync_console console_to_ring earlyprintk=xen plymouth.enable=0 net.ifnames=0 biosdevname=0
+				kernel /boot/vmlinuz-$AMI_KERNEL_VER ro root=UUID=$ROOT_UUID console=hvc0 LANG=en_US.UTF-8 loglvl=all sync_console console_to_ring earlyprintk=xen plymouth.enable=0 net.ifnames=0 biosdevname=0
 				initrd /boot/initramfs-${AMI_KERNEL_VER}.img
 		EOT
 		ln -sf grub.conf $AMI_GRUB_PATH/menu.lst
