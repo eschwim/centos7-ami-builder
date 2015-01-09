@@ -234,9 +234,9 @@ install_packages() {
 
 	# Install additional packages that we are definitely going to want
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install psmisc grub2 \
-		dhclient ntp e2fsprogs sudo openssh-server openssh-clients vim-minimal \
+		dhclient ntp e2fsprogs sudo openssh-server openssh-clients vim-minimal postfix \
 		yum-plugin-fastestmirror sysstat epel-release python-setuptools gcc make \
-		xinetd rsyslog  microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init 
+		xinetd rsyslog microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init 
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
@@ -245,6 +245,14 @@ install_packages() {
 	# Enable our required services
 	chroot $AMI_MNT /bin/systemctl -q enable rsyslog ntpd sshd cloud-init cloud-init-local \
 		cloud-config cloud-final
+    
+    # Create our default bashrc files
+    cat > $AMI_MNT/root/.bashrc <<-EOT
+    alias rm='rm -i' cp='cp -i' alias mv='mv -i'           
+    [ -f /etc/bashrc ] && . /etc/bashrc                       
+    EOT
+    cp $AMI_MNT/root/.bashrc $AMI_MNT/root/.bash_profile
+
 }
 
 
@@ -350,7 +358,7 @@ enter_shell() {
 	output "Entering AMI chroot; customize as needed.  Enter 'exit' to finish build."
 	cp /etc/resolv.conf $AMI_MNT/etc
 	PS1="[${AMI_NAME}-chroot \W]# " chroot $AMI_MNT &> /dev/tty
-	rm -f $AMI_MNT/etc/resolv.conf
+	rm -f $AMI_MNT/{etc/resolv.conf,root/.bash_history}
 }
 
 
