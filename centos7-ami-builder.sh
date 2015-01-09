@@ -248,7 +248,7 @@ install_packages() {
 	
 	# Create our default bashrc files
 	cat > $AMI_MNT/root/.bashrc <<-EOT
-	alias rm='rm -i' cp='cp -i' alias mv='mv -i'		   
+	alias rm='rm -i' cp='cp -i' mv='mv -i'		   
 	[ -f /etc/bashrc ] && . /etc/bashrc					   
 	EOT
 	cp $AMI_MNT/root/.bashrc $AMI_MNT/root/.bash_profile
