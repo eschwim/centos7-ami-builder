@@ -257,11 +257,11 @@ install_packages() {
 	[[ -f $AMI_MNT/bin/bash ]] || fatal "Failed to install base packages into $AMI_MNT"
 
 	# Install additional packages that we are definitely going to want
-	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install psmisc grub2 \
-		dhclient ntp e2fsprogs sudo openssh-server openssh-clients vim-minimal postfix \
-		yum-plugin-fastestmirror sysstat epel-release python-setuptools gcc make \
-		xinetd rsyslog microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init \
-		elrepo-release kernel-ml
+	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install \
+        --enablerepo=elrepo-kernel psmisc grub2 dhclient ntp e2fsprogs sudo \
+		openssh-clients vim-minimal postfix yum-plugin-fastestmirror sysstat \
+		epel-release python-setuptools gcc make xinetd rsyslog microcode_ctl \
+		gnupg2 bzip2 cloud-utils-growpart cloud-init elrepo-release kernel-ml 
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
