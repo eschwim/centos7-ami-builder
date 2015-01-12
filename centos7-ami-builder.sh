@@ -240,7 +240,12 @@ install_packages() {
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
-		plymouth plymouth-scripts plymouth-core-libs chrony
+		plymouth plymouth-scripts plymouth-core-libs chrony kernel
+
+	# Install the elrepo mainline kernel (to work around https://bugzilla.redhat.com/show_bug.cgi?id=1099985)
+	chroot $AMI_MNT rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+	chroot $AMI_MNT rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+	chroot $AMI_MNT rpm yum --enablerepo=elrepo-kernel install kernel-ml
 
 	# Enable our required services
 	chroot $AMI_MNT /bin/systemctl -q enable rsyslog ntpd sshd cloud-init cloud-init-local \
