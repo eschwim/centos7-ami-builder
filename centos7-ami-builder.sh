@@ -258,10 +258,10 @@ install_packages() {
 
 	# Install additional packages that we are definitely going to want
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install \
-        --enablerepo=elrepo-kernel psmisc grub2 dhclient ntp e2fsprogs sudo \
+        psmisc grub2 dhclient ntp e2fsprogs sudo elrepo-release kernel-ml \
 		openssh-clients vim-minimal postfix yum-plugin-fastestmirror sysstat \
 		epel-release python-setuptools gcc make xinetd rsyslog microcode_ctl \
-		gnupg2 bzip2 cloud-utils-growpart cloud-init elrepo-release kernel-ml 
+		gnupg2 bzip2 cloud-utils-growpart cloud-init 
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
