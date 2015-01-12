@@ -226,6 +226,30 @@ install_packages() {
 	enabled=0
 	gpgkey=http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 	gpgcheck=1
+
+	[elrepo]
+	name=ELRepo.org Community Enterprise Linux Repository - el7
+	baseurl=http://elrepo.org/linux/elrepo/el7/\$basearch/
+			http://mirrors.coreix.net/elrepo/elrepo/el7/\$basearch/
+			http://jur-linux.org/download/elrepo/elrepo/el7/\$basearch/
+			http://repos.lax-noc.com/elrepo/elrepo/el7/\$basearch/
+			http://mirror.ventraip.net.au/elrepo/elrepo/el7/\$basearch/
+	mirrorlist=http://mirrors.elrepo.org/mirrors-elrepo.el7
+	enabled=1
+	gpgcheck=1
+	gpgkey=https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+
+	[elrepo-kernel]
+	name=ELRepo.org Community Enterprise Linux Kernel Repository - el7
+	baseurl=http://elrepo.org/linux/kernel/el7/\$basearch/
+			http://mirrors.coreix.net/elrepo/kernel/el7/\$basearch/
+			http://jur-linux.org/download/elrepo/kernel/el7/\$basearch/
+			http://repos.lax-noc.com/elrepo/kernel/el7/\$basearch/
+			http://mirror.ventraip.net.au/elrepo/kernel/el7/\$basearch/
+	mirrorlist=http://mirrors.elrepo.org/mirrors-elrepo-kernel.el7
+	enabled=1
+	gpgcheck=1
+	gpgkey=https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 	EOT
 
 	# Install base pacakges
@@ -236,16 +260,12 @@ install_packages() {
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes install psmisc grub2 \
 		dhclient ntp e2fsprogs sudo openssh-server openssh-clients vim-minimal postfix \
 		yum-plugin-fastestmirror sysstat epel-release python-setuptools gcc make \
-		xinetd rsyslog microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init 
+		xinetd rsyslog microcode_ctl gnupg2 bzip2 cloud-utils-growpart cloud-init \
+		elrepo-release kernel-ml
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
 		plymouth plymouth-scripts plymouth-core-libs chrony kernel
-
-	# Install the elrepo mainline kernel (to work around https://bugzilla.redhat.com/show_bug.cgi?id=1099985)
-	chroot $AMI_MNT rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-	chroot $AMI_MNT rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
-	chroot $AMI_MNT yum --enablerepo=elrepo-kernel install kernel-ml
 
 	# Enable our required services
 	chroot $AMI_MNT /bin/systemctl -q enable rsyslog ntpd sshd cloud-init cloud-init-local \
