@@ -261,7 +261,7 @@ install_packages() {
         psmisc grub2 dhclient ntp e2fsprogs sudo elrepo-release kernel-ml \
 		openssh-clients vim-minimal postfix yum-plugin-fastestmirror sysstat \
 		epel-release python-setuptools gcc make xinetd rsyslog microcode_ctl \
-		gnupg2 bzip2 cloud-utils-growpart cloud-init 
+		gnupg2 bzip2 cloud-utils-growpart cloud-init openssh-server
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
