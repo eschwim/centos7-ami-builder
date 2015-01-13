@@ -265,7 +265,7 @@ install_packages() {
 
 	# Remove unnecessary RPMS
 	yum --config=$YUM_CONF --installroot=$AMI_MNT --assumeyes erase \
-		plymouth plymouth-scripts plymouth-core-libs chrony
+		plymouth plymouth-scripts plymouth-core-libs chrony firewalld
 
 	# Enable our required services
 	chroot $AMI_MNT /bin/systemctl -q enable rsyslog ntpd sshd cloud-init cloud-init-local \
