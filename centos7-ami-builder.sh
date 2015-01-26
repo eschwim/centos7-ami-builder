@@ -125,6 +125,8 @@ mount_img_file()
 
 	# Make our chroot directory hierarchy
 	mkdir -p $AMI_MNT/{dev,etc,proc,sys,var/{cache,log,lock,lib/rpm}}
+    ln -sf $AMI_MNT/var/run ../run
+    ln -sf $AMI_MNT/var/lock ../run/lock
 
 	# Create our special devices
 	mknod -m 600 $AMI_MNT/dev/console c 5 1
