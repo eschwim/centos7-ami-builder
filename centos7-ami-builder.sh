@@ -125,6 +125,7 @@ mount_img_file()
 
 	# Make our chroot directory hierarchy
 	mkdir -p $AMI_MNT/{dev,etc,proc,sys,var/{cache,log,lock,lib/rpm}}
+    rm -rf $AMI_MNT/var/{run,lock}
     ln -sf $AMI_MNT/var/run ../run
     ln -sf $AMI_MNT/var/lock ../run/lock
 
