@@ -442,7 +442,7 @@ register_ami() {
 		output "Looking up latest PV-GRUB kernel image..."
 		PVGRUB_AKI=$(aws ec2 describe-images --output text --owners amazon --filters \
 			Name=image-type,Values=kernel Name=name,Values='*pv-grub-hd0_*' Name=architecture,Values=x86_64 \
-			| sort -r -t$'\t' -k9 | head -1 | cut -f5)
+			| sort -r -t$'\t' -k9 | head -1 | cut -f6)
 		[[ -z $PVGRUB_AKI ]] && fatal "Unable to find PV-GRUB AKI!"
 		output "Found AKI $PVGRUB_AKI"
 
