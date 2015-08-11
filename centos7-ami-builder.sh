@@ -562,6 +562,8 @@ sanity_check() {
 	# Make sure our ami size is numeric
 	[[ "$AMI_SIZE" =~ ^[0-9]+$ ]] || fatal "AMI size must be an integer!"
 	(( "$AMI_SIZE" >= 1000 )) || fatal "AMI size must be at least 1000 MB (currently $AMI_SIZE MB!)"
+    (( "$AMI_SIZE" <= 8192 )) || fatal "AMI size should be no more than 8192 (8GB)"
+
 
 	# Check for ket/cert existance
 	[[ ! -f $AWS_PRIVATE_KEY ]] && fatal "EC2 private key '$AWS_PRIVATE_KEY' doesn't exist!"
