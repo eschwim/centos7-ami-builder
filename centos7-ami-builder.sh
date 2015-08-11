@@ -339,7 +339,7 @@ setup_network() {
 install_grub() {
 	
 	AMI_BOOT_PATH=$AMI_MNT/boot
-	AMI_KERNEL_VER=$(ls $AMI_BOOT_PATH | egrep -o '3\..*' | head -1)
+	AMI_KERNEL_VER=$(ls $AMI_BOOT_PATH | egrep -o '4\..*' | head -1)
 
 	# Install our grub.conf for only the PV machine, as it is needed by PV-GRUB
 	if [[ $AMI_TYPE == "pv" ]]; then
